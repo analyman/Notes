@@ -7,9 +7,9 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1. 基本的PowerShell命令](#1-基本的PowerShell命令)
+* [1. 基本的PowerShell命令](#1-基本的powershell命令)
     * [1.1 文件和帮助](#11-文件和帮助)
-* [2. PowerShell的语法](2-PowerShell的语法)
+* [2. PowerShell的语法](2-powershell的语法)
     * [2.1 选择结构](#21-选择结构)
     * [2.2 循环结构](#22-循环结构)
     * [2.3 比较操作](#23-比较操作)

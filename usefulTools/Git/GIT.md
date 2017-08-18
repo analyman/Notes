@@ -7,13 +7,13 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1. GitHub基础使用](#1-GitHub基础使用)
+* [1. GitHub基础使用](#1-github基础使用)
     * [1.1 增加SSH到GitHub账号](#11)
-    * [1.2 使用Git的基本命令](#12使用Git的基本命令)
+    * [1.2 使用Git的基本命令](#12使用git的基本命令)
     * [1.3 忽略一些文件](#13-忽略一些文件)
     * [1.4 文件操作](#14-文件操作)
     * [1.5 查看提交历史](#15-查看提交历史)
-    * [1.6 GIT分支](#16-GIT分支)
+    * [1.6 GIT分支](#16-git分支)
     * [1.7 远程库](#17-远程库)
     * [1.8 Some git config](#18-Some-git-config)
 

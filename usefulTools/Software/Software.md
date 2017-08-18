@@ -7,9 +7,9 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1.1 VIM](#11-VIM)
-* [1.2 TeX,enscript,gimli](#12-TeXenscriptglimli)
-* [1.3 Essential](#13-Essential)
+* [1.1 VIM](#11-vim)
+* [1.2 TeX,enscript,gimli](#12-texenscriptglimli)
+* [1.3 Essential](#13-essential)
 
 ## 1.1 VIM
 
