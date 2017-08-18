@@ -7,14 +7,15 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1. 标题](#1)
-* [2. 链接和图片](#2)
-* [3. 代码块](#3)
-* [4. 表格](#4)
-* [5. 列表 粗体 斜体 缩进](#5)
-* [6. HTML的一些拓展](#6)
+* [1. 标题](#1-标题)
+* [2. 链接和图片](#2-链接和图片)
+* [3. 代码块](#3-代码块)
+* [4. 表格](#4-表格)
+* [5. 列表 粗体 斜体 缩进](#5-列表-粗体-斜体-缩进)
+* [6. html的一些拓展](#6html的一些拓展)
+* [7. github中使用的目录](#7-github中使用的目录)
 
-<h3 name="1"><span style="color:rgb(110,110,0)">1. 标题</span><h3>
+### 1. 标题
 
 ``` markdown
 # 一级标题
@@ -44,7 +45,7 @@
 二级标题 Underline
 ------------------
 
-<h3 name="2"><span style="color:rgb(110,110,0)">2. 链接和图片</span></h3>
+### 2. 链接和图片
 **链接**
 
 ``` markdown
@@ -77,7 +78,7 @@
 
 [referid]:./img/google-logo.png "title"
 
-<h3 name="3"><span style="color:rgb(110,110,0)">3. 代码块</span></h3>
+### 3. 代码块
 
 **大段的**
 ``` markdown
@@ -110,7 +111,7 @@ This is a example `echo "Hello!`.
 **Final is this**  
 This is a example `echo "Hello!`.
 
-<h3 name="4"><span style="color:rgb(110,110,0)">4. 表格</span></h3>
+### 4. 表格
 
 ``` markdown
 |中文|English|Latin|
@@ -127,7 +128,7 @@ This is a example `echo "Hello!`.
 |房|room|domus|
 |钱|money|pecunia|
 
-<h3 name="5"><span style="color:rgb(110,110,0)">5. 列表 粗体 斜体 缩进</span></h3>
+### 5. 列表 粗体 斜体 缩进
 
 ``` markdown
 * list1
@@ -161,7 +162,7 @@ This is a example `echo "Hello!`.
 
 > Indent11
 
-<h3 name="6"><span style="color:rgb(110,110,0)">6. HTML的一些拓展</span></h3>
+### 6. HTML的一些拓展
 
 > 创建简单的目录  
 
@@ -192,3 +193,31 @@ This is a example `echo "Hello!`.
 ```
 **Final is this**  
 &#123;&#124;&#125;
+
+### 7. GitHub中使用的目录
+
+> 简单示例
+
+``` markdown
+* [1. 标题](#1-标题)
+* [2. 链接和图片](#2-链接和图片)
+* [3. 代码块](#3-代码块)
+* [4. 表格](#4-表格)
+* [5. 列表 粗体 斜体 缩进](#5-列表-粗体-斜体-缩进)
+* [6. HTML的一些拓展](#6html的一些拓展)
+* [7. github中使用的目录](#7-github中使用的目录)
+
+### 1. 标题
+
+### 2. 链接和图片
+
+......
+
+### 7. GitHub中使用的目录
+```
+
+**注意事项:**
+
++ 标题出现的大写字母在链接中使用对应的小写字母代替
++ 各级标题中出现的空格在链接中使用`-`代替
++ 忽略标点符号
