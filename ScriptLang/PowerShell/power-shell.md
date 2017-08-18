@@ -7,16 +7,16 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1. 基本的PowerShell命令](#1.baspow)
-    * [1.1 文件和帮助](#1.1)
-* [2. PowerShell的语法](2.synpow)
-    * [2.1 选择结构](#2.1)
-    * [2.2 循环结构](#2.2)
-    * [2.3 比较操作](#2.3)
+* [1. 基本的PowerShell命令](#1-基本的PowerShell命令)
+    * [1.1 文件和帮助](#11-文件和帮助)
+* [2. PowerShell的语法](2-PowerShell的语法)
+    * [2.1 选择结构](#21-选择结构)
+    * [2.2 循环结构](#22-循环结构)
+    * [2.3 比较操作](#23-比较操作)
 
-<h2 name="1"><span style="color: rgb(0,110,110)">1. 基本的PowerShell命令</span></h2>
+## 1. 基本的PowerShell命令
 
-<h3 name="1.1"><span style="color: rgb(110,110,0)">1.1 文件和帮助</span></h3>
+### 1.1 文件和帮助
 
 ``` powershell
 # ls,dir
@@ -25,9 +25,9 @@ Get-ChildItem [Path]
 Get-Help <cmdlet-name> [-Online]
 ```
 
-<h2 name="2"><span style="color: rgb(0,110,110)">2. PowerShell的语法</span></h2>
+## 2. PowerShell的语法
 
-<h3 name="2.1"><span style="color: rgb(110,110,0)">2.1 选择结构</span></h3>
+### 2.1 选择结构
 
 ``` powershell
 # if ... elseif ... else
@@ -56,7 +56,7 @@ switch (expression) {
 # break,continue和shell没什么区别
 ```
 
-<h3 name="2.2"><span style="color: rgb(110,110,0)">2.1 循环结构</span></h3>
+### 2.1 循环结构
 
 ``` powershell
 # for
@@ -81,7 +81,7 @@ Do{
 #foreach
 ```
 
-<h3 name="2.3"><span style="color: rgb(110,110,0)">2.3 比较操作</span></h3>
+### 2.3 比较操作
 
 |Operator|Descripton|
 |--------|----------|

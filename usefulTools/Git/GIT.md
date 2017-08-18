@@ -7,21 +7,21 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1. GitHub基础使用](#0)
-    * [1.1 增加SSH到GitHub账号](#1.1)
-    * [1.2 使用Git的基本命令](#1.2)
-    * [1.3 忽略一些文件](#1.3)
-    * [1.4 文件操作](#1.4)
-    * [1.5 查看提交历史](#1.5)
-    * [1.6 GIT分支](#1.6)
-    * [1.7 远程库](#1.7)
-    * [1.8 Some git config](#1.8)
+* [1. GitHub基础使用](#1-GitHub基础使用)
+    * [1.1 增加SSH到GitHub账号](#11)
+    * [1.2 使用Git的基本命令](#12使用Git的基本命令)
+    * [1.3 忽略一些文件](#13-忽略一些文件)
+    * [1.4 文件操作](#14-文件操作)
+    * [1.5 查看提交历史](#15-查看提交历史)
+    * [1.6 GIT分支](#16-GIT分支)
+    * [1.7 远程库](#17-远程库)
+    * [1.8 Some git config](#18-Some-git-config)
 
-<h2 name="1"><span style="color: rgb(0,110,110)">1. GitHub基础使用</span></h2>
+## 1. GitHub基础使用
 
-<h3 name="1.1"><span style="color: rgb(110,110,0)">1.1 增加SHH到GitHub账号</span></h3>
+### 1.1 增加SHH到GitHub账号
 
-<h4 name=""><span style="color: rgb(44,44,110)">生成 SSH-Key</span></h4>
+#### 生成 SSH-Key
 
 ``` bash
 ssh-keygen -t rsa -b 4096 -C "email"
@@ -29,7 +29,7 @@ ssh-keygen -t rsa -b 4096 -C "email"
 
 默认生成的SSH-Key位于*~/.ssh*下.可以用`ls ~/.ssh`查看存在的SSH-Key.
 
-<h4 name=""><span style="color: rgb(44,44,110)">增加SSH-Key到SSH-Agent</span></h4>
+#### 增加SSH-Key到SSH-Agent
 
 ``` bash
 # start the ssh-agent in the background
@@ -39,7 +39,7 @@ Agent pid 59566
 # add ssh private key to the ssh-agent
 ssh-add ~/.ssh/id_rsa
 ```
-<h4 name=""><span style="color: rgb(44,44,110)">增加SSH-Key到GitHub</span></h4>
+#### 增加SSH-Key到GitHub
 
 ``` bash
 # download xclip, and copies the contens of the id_rsa.pub file to your clipboard
@@ -52,15 +52,15 @@ ssh -T git@github.com
 # 测试使用
 ```
 
-<h3 name="1.2"><span style="color: rgb(110,110,0)">1.2 使用Git的基本命令</span></h3>
+### 1.2 使用Git的基本命令
 
-<h4 name=""><span style="color: rgb(44,44,110)">在目录初始化Git repository</span></h4>
+#### 在目录初始化Git repository
 
 ``` bash
 git init
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">配置Git</span></h4>
+#### 配置Git
 
 ``` bash
 # user.email and user.name is enssential for use git
@@ -68,13 +68,13 @@ git config --global user.email "your email"
 git config --global user.name "your name"
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">从现有的repository中克隆</span></h4>
+#### 从现有的repository中克隆
 
 ``` bash
 git clone {<url>|<file-path>} [path]
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">一些基本的本地命令</span></h4>
+#### 一些基本的本地命令
 
 ``` bash
 # 添加文件到暂存区
@@ -87,7 +87,7 @@ git commit -m { comment }
 git status
 ```
 
-<h3 name="1.3"><span style="color: rgb(110,110,0)">1.3 忽略一些文件</span></h3>
+### 1.3 忽略一些文件
 
 *.gitignore文件*
 将要忽略的文件名添加到`.gitignore`下  
@@ -102,9 +102,9 @@ git status
 + '**'能匹配文件绝对路径的'/'
 + '[ab]'匹配一次'a'或'b'
 
-<h3 name="1.4"><span style="color: rgb(110,110,0)">1.4 文件操作</span></h3>
+### 1.4 文件操作
 
-<h4 name=""><span style="color: rgb(44,44,110)">移除文件</span></h4>
+#### 移除文件
 
 ``` bash
 # 移除目录下的文件
@@ -117,7 +117,7 @@ git rm <file-name>  # 如果在暂存区需要`-f`
 git rm --cached <file-name>
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">移动文件</span></h4>
+#### 移动文件
 
 ``` bash
 # 移动操作
@@ -129,13 +129,13 @@ git rm <source-file>
 git add <dest-file>
 ```
 
-<h3 name="1.5"><span style="color: rgb(110,110,0)">1.5 查看提交历史</span></h3>
+### 1.5 查看提交历史
 
-<h4 name=""><span style="color: rgb(44,44,110)">使用`git log`</span></h4>
+#### 使用`git log`
 
-<h3 name="1.6"><span style="color: rgb(110,110,0)">1.6 分支</span></h3>
+### 1.6 分支
 
-<h4 name=""><span style="color: rgb(44,44,110)">新建分支</span></h4>
+#### 新建分支
 
 ``` bash
 # 新建一个名为example的分支
@@ -150,7 +150,7 @@ git checkout -b example [old-name]
 # 以上各个命令, 若[old-name]存在，则新建的分支从[old-name]复制
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">删除分支</span></h4>
+#### 删除分支
 
 ``` bash
 # delete example branch
@@ -160,15 +160,15 @@ git branch -d example
 git branch -D example
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">合并分支</span></h4>
+#### 合并分支
 
 ``` bash
 # 当前在branch1, 合并branch2
 git merge branch2
 ```
-<h3 name="1.7"><span style="color: rgb(110,110,0)">1.7 远程库</span></h3>
+### 1.7 远程库
 
-<h4 name=""><span style="color: rgb(44,44,110)">查看远程库</span></h4>
+#### 查看远程库
 
 ``` bash
 # 查看远程库的名称
@@ -181,14 +181,14 @@ origin git://github.com/example/exam.git (fetch)
 origin git://github.com/example/exam.git (push)
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">增加远程库</span></h4>
+#### 增加远程库
 
 ``` bash
 # add remote repository
 git remote add [short-name] [url] # Then can use short-name to push fetch repository.
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">推送到远程库</span></h4>
+#### 推送到远程库
 
 ``` bash
 # push local branch to remote
@@ -203,7 +203,7 @@ git push {remote-repository} :{remote-branch}
 
 <span style="color:green">if use ssh to push local branch to remote repositoty, should use "git@github.com:user-name/repository-name" format with remote url.</span>
 
-<h4 name=""><span style="color: rgb(44,44,110)">抓取远程库</span></h4>
+#### 抓取远程库
 
 ``` bash
 # this command in below will generate a new branch, which named be {repository}/[repository-branch].But that branch can't change, if the [repository-branch] isn't exist, it default is master.
@@ -213,9 +213,9 @@ git fetch {repository} [repository-branch]
 git checkout --track {repository}/{branch}
 ```
 
-<h3 name="1.8"><span style="color: rgb(110,110,0)">1.8 Some git config</span></h3>
+### 1.8 Some git config
 
-<h4 name=""><span style="color: rgb(44,44,110)">Total config introduce</span></h4>
+#### Total config introduce
 
 *git的配置文件*
 
@@ -232,7 +232,7 @@ git checkout --track {repository}/{branch}
 > `core.excludesfile` # 和`.gitignore`相似，用于排除文件  
 > `help.autocorrect` # 用于修正命令
 
-<h4 name=""><span style="color: rgb(44,44,110)">Git中的着色</span></h4>
+#### Git中的着色
 
 `color.ui` 用于开关是否着色, `true`表示开启着色， `false`表示关闭着色， `always`表是即使重定向也输出着色  
 
@@ -255,7 +255,7 @@ git config color.status.untracked "red green bold"
 git config color.X.Y "`foreground-color` `background-color` `font`"
 ```
 
-<h4 name=""><span style="color: rgb(44,44,110)">Git Alias</span></h4>
+#### Git Alias
 
 ``` bash
 # there are some example alias

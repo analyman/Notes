@@ -11,20 +11,20 @@
     * [0.1 操作](#0.1)
     * [0.2 Ex命令](#0.2)
 
-* [1. VIML基本语法](#1)
-    * [1.1 条件语句](#1.1)
-    * [1.2 循环语句](#1.2)
-    * [1.3 函数](#1.3)
-    * [1.4 自动命令](#1.4)
+* [1. VIML基本语法](#1-VIML基本语法)
+    * [1.1 条件语句](#11-条件语句)
+    * [1.2 循环语句](#12-循环语句)
+    * [1.3 函数](#13-函数)
+    * [1.4 自动命令](#14-自动命令)
 
-* [2. 变量](#2)
-    * [2.1 作用域](#2.1)
-    * [2.2 种类](#2.2)
-    * [2.3 例子](#2.3)
+* [2. 变量](#2-变量)
+    * [2.1 作用域](#21-作用域)
+    * [2.2 种类](#22-种类)
+    * [2.3 例子](#23-例子)
 
-<h2 name="1"><span style="color: rgb(0,110,110)">1. VIML基本语法</span></h2>
+## 1. VIML基本语法
 
-<h3 name="1.1"><span style="color: rgb(110,110,0)">1.1 条件语句</span></h2>
+### 1.1 条件语句
 
 **VIML**的条件语句有`if ... [ elseif ... ] [ else ... ] endif`语句
 
@@ -37,7 +37,7 @@ else
 endif
 ```
 
-<h3 name="1.2"><span style="color: rgb(110,110,0)">1.2 循环语句</span></h2>
+### 1.2 循环语句
 
 **VIML**的循环语句有`while ... endwhile`,`for <var> in <list> ... endfor`
 
@@ -57,7 +57,7 @@ for froname in list
 endfor
 ```
 
-<h3 name="1.3"><span style="color: rgb(110,110,0)">1.3 函数</span></h3>
+### 1.3 函数
 
 **VIML**的函数定义方式和调用方式
 ``` vim
@@ -71,7 +71,7 @@ endfunction
 call s:example()
 ```
 
-<h3 name="1.4"><span style="color: rgb(110,110,0)">1.4 自动命令</span></h3>
+### 1.4 自动命令
 
 主要就是`autocmd`和`autogroup`
 ``` vim
@@ -119,9 +119,9 @@ do[autocmd] [<nomodeline>] [group] {event} [fname]
 " doautoa[ll]和autocmd相似，只是应用于所有buffer中
 ```
 
-<h2 name="2"><span style="color: rgb(0,110,110)">2. 变量</span></h2>
+## 2. 变量
 
-<h3 name="2.1"><span style="color: rgb(110,110,0)">2.1 作用域</span></h3>
+### 2.1 作用域
 
 > VIMSCRIPT变量
 
@@ -142,7 +142,7 @@ do[autocmd] [<nomodeline>] [group] {event} [fname]
 * @varname      寄存器(register)的值
 * $varname      环境变量
 
-<h3 name="2.2"><span style="color: rgb(110,110,0)">2.2 类型</span></h3>
+### 2.2 类型
 
 **VIML**的比较特殊的变量类型有`List(列表)`,`Directionary(字典)`
 

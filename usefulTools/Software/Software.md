@@ -7,13 +7,13 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1.1 VIM](#1.1)
-* [1.2 TeX,enscript,gimli](#1.2)
-* [1.3 Essential](#1.3)
+* [1.1 VIM](#11-VIM)
+* [1.2 TeX,enscript,gimli](#12-TeXenscriptglimli)
+* [1.3 Essential](#13-Essential)
 
-<h2 name="1.1"><span style="color: rgb(0,110,110)">1.1 VIM</span></h2>
+## 1.1 VIM
 
-<h3 name=""><span style="color: rgb(110,110,0)">VIM Install</span></h3>
+### VIM Install
 
 ``` bash
 # 从源码安装
@@ -30,16 +30,16 @@ make
 sudo make install
 ```
 
-<h2 name="1.2"><span style="color: rgb(0,110,110)">1.2 TeX,enscript,gimli</span></h2>
+## 1.2 TeX,enscript,gimli
 
-<h3 name=""><span style="color: rgb(110,110,0)">TeX</span></h3>
+### TeX
 
 使用**Texlive**, 从官网或者镜像网站下载**texlive.iso**, 挂载镜像  
 
 * Linux: `install-tl`, 接着`I`继续安装即可
 * Windows: 直接使用批处理
 
-<h3 name=""><span style="color: rgb(110,110,0)">enscript</span></h3>
+### enscript
 
 <span style="color:green">converts text to Postscript, HTML or RTF with syntax highlighting</span>  
 
@@ -51,7 +51,7 @@ $ sudo apt install enscript
 $ enscript -E {highlight language} -p {<output-file>} -i {num-indent(c i l p)} {<source-file>}
 ```
 
-<h3 name=""><span style="color: rgb(110,110,0)">gimli</span></h3>
+### gimli
 
 ``` bash
 # Install
@@ -62,9 +62,9 @@ $ sudo gem install gimli
 gemli -file {src-file|src-fold} -outputfilename {<file-name>only use one file} -merge
 ```
 
-<h2 name="1.3"><span style="color: rgb(0,110,110)">1.3 Essential</span></h2>
+## 1.3 Essential
 
-<h3 name="1.3.1"><span style="color: rgb(110,110,0)">google chrome</span></h3>
+### google chrome
 
 ``` bash
 # download signing-key
@@ -86,7 +86,7 @@ sudo apt install google-chrome-beta
 sudo apt install google-chrome-unstable
 ```
 
-<h3 name="1.3.2"><span style="color: rgb(110,110,0)">grub customizer</span></h3>
+### grub customizer
 
 ``` bash
 # add ppa
@@ -97,7 +97,7 @@ sudo apt update
 sudo apt install grub-customizer
 ```
 
-<h3 name="1.3.3"><span style="color: rgb(110,110,0)">btsync</span></h3>
+### btsync
 
 **Description:** 用于同步文件
 
