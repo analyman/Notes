@@ -1,0 +1,8 @@
+# html file
+*.html
+
+# vim swap file
+*.swp
+
+# pdf file
+*.pdf
