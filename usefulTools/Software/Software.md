@@ -7,116 +7,53 @@
 
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
-* [1.1 VIM](#11-vim)
-* [1.2 TeX,enscript,gimli](#12-texenscriptglimli)
-* [1.3 Essential](#13-essential)
+* [1. Windows Manager](#1-windows-manager)
+    * [1.1 X Windows Manager](#11-x-windows-manager)
+    * [1.2 Windows login Manager](#12-windows-login-manager)
+        * [1.2.1 lightdm](#121-lightdm)
+        * [1.2.2 gdm](#122-gdm)
+    * [1.3 Windows Display Manager](#windows-display-manager)
+        * [1.3.1 Xmonad](#131-xmonad)
+* [2. 文本编辑器](#2-文本编辑器)
+    * [2.1 VIM](#21-vim)
+    * [2.2 Emacs](#22-emacs)
+* [3. 图片处理](#3-图片处理)
+* [4. 日常使用](#4-日常使用)
+    * [4.1 Google-Chrome](#41-googlechrome)
+* [5. 网络管理](#5-网络管理)
+    * [5.1 nmcli](#51-nmcli)
 
-## 1.1 VIM
+## 1. Windows Manager
 
-### VIM Install
+### 1.1 X Windows Manager
 
-``` bash
-# 从源码安装
-# Ubuntu
-sudo apt build-dep vim-gtk  		# 依赖安装, gtk包
-git clone git://github/vim/vim.git	# 源码
+### 1.2 Windows login Manager
 
-./configure --enable-gui=gtk3 --with-features=huge\
---enable-python3interp=yes --enable-pythoninterp=yes\
---enable-rubyinterp=yes --enable-perlinterp=yes\
---enable-luainterp=yes --enable-tclinterp=yes
+#### 1.2.1 lightdm
 
-make
-sudo make install
-```
+#### 1.2.2 gdm
 
-## 1.2 TeX,enscript,gimli
+### 1.3. Windows Display Manager
 
-### TeX
+#### 1.3.1 Xmonad
 
-使用**Texlive**, 从官网或者镜像网站下载**texlive.iso**, 挂载镜像  
+**Look:**  
+[Xmonad.md](../Xmonad/Xmonad.md)
 
-* Linux: `install-tl`, 接着`I`继续安装即可
-* Windows: 直接使用批处理
+## 2. 文本编辑器
 
-### enscript
+### 2.1 VIM
 
-<span style="color:green">converts text to Postscript, HTML or RTF with syntax highlighting</span>  
+### 2.2 Emacs
 
-``` bash
-# use apt install it
-$ sudo apt install enscript
+## 3. 图片处理
 
-# basic use
-$ enscript -E {highlight language} -p {<output-file>} -i {num-indent(c i l p)} {<source-file>}
-```
+## 4. 日常使用
 
-### gimli
+### 4.1 Google-Chrome
 
-``` bash
-# Install
-$ sudo apt install ruby ruby-dev libz-dev
-$ sudo gem install gimli
+## 5. 网络管理
 
-# Basic use
-gemli -file {src-file|src-fold} -outputfilename {<file-name>only use one file} -merge
-```
+### 5.1 nmcli
 
-## 1.3 Essential
 
-### google chrome
-
-``` bash
-# download signing-key
-wget https://dl.google.com/linux/linux_signing_key.pub
-
-# use apt-key add the key
-sudo apt-key add linux_signing_key.pub
-
-# 加入google-chrome源
-# 64bit的系统才可以使用, 32bit系统使用chrominu
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-
-# and you should update before installing chrome
-sudo apt update
-
-# installing chrome, three type
-sudo apt install google-chrome-stable
-sudo apt install google-chrome-beta
-sudo apt install google-chrome-unstable
-```
-
-### grub customizer
-
-``` bash
-# add ppa
-sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-
-# update and install
-sudo apt update
-sudo apt install grub-customizer
-```
-
-### btsync
-
-**Description:** 用于同步文件
-
-``` bash
-
-# Add source
-echo "deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free" | sudo tee /etc/apt/sources.list.d/resilio-sync.list
-
-# Add key
-wget -qO - https://linux-packages.resilio.com/resilio-sync/key.asc | sudo apt-key add -
-
-# update
-sudo apt update
-
-# Install
-sudo apt install resilio-sync
-
-# 使用, 启动
-sudo systemctl start resilio-sync
-sudo systemctl enable resilio-sync        # 开机自启
-google-chrome 127.0.0.1:8888        # 浏览器打开 127.0.0.1:8888
-```
