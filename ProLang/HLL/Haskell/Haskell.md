@@ -4,17 +4,82 @@
 
 ## 关键字
 
+|关键字|简述|
+|:----:|----|
+|module|定义一个模块|
+|import|import一个模块|
+|qulified|import模块避免避免命名冲突|
+|as|和qulified一起使用|
+|data|定义新的类型(类型构造子)|
+|type|定义一个类型的别名|
+|newtype|和data类似|
+|Char|字符|
+|String|字符串`type String = [Char]`|
+|Int|`Int`类型|
+|Integer|`Integer`类型|
+|Word|`Word`类型|
+|Float|`Float`类型|
+|Double|`Double`类型|
+|IO|`IO`类型构造子|
+
 ## 类型
 
 + 类型的名称以大写字母开头
 
 ### Bool
 
-### Int, Integer, Float, Double
+`Bool`**的定义:**
+
+``` haskell
+-- GHC.Types
+data Bool = False | True
+```
+
+### Word, Int, Integer, Float, Double
+
+#### 五种数值类型的定义
+
+``` haskell
+data Word = GHC.Types.W# GHC.Prim.Word#
+data Int = GHC.Types.I# GHC.Prim.Int#
+data Integer
+  = integer-gmp-1.0.0.1:GHC.Integer.Type.S# !GHC.Prim.Int#
+  | integer-gmp-1.0.0.1:GHC.Integer.Type.Jp# {-# UNPACK #-}integer-gmp-1.0.0.1:GHC.Integer.Type.BigNat
+  | integer-gmp-1.0.0.1:GHC.Integer.Type.Jn# {-# UNPACK #-}integer-gmp-1.0.0.1:GHC.Integer.Type.BigNat
+data Float = GHC.Types.F# GHC.Prim.Float#
+data Double = GHC.Types.D# GHC.Prim.Double#
+```
+
+#### Num
+
+``` haskell
+class Num a where
+    (+) :: a -> a -> a
+    (-) :: a -> a -> a
+    (*) :: a -> a -> a
+    negate :: a -> a
+    abs :: a -> a
+    signum :: a -> a
+    fromInteger :: Integer -> a
+```
+
+`Word, Int, Integer, Float, Double`都是`Num`的`instance`
 
 ### List
 
+`[]`**的定义:**
+
+``` haskell
+-- GHC.Types
+data [] a = [] | a : [a]
+```
+
 ### Tuple
+
+``` haskell
+-- GHC.Tuple
+data () = ()
+```
 
 ### 定义新的数据类型
 
@@ -94,11 +159,43 @@ data Maybe a = Nothing | Just a
 
 ## 函数
 
++ 函数也是有类型的
 + 函数的名称以小写字母开头
++ 函数的类型声明:`funcName :: Type1 -> Type2 -> Type3`
 
 ### 函数的定义
 
 ### CASE
+
+## 使用GHCI
+
+**Available Commands:**
+
+|Commands|Description|
+|:------:|-----------|
+|`:`|重复上一个命令|
+|`:{\n .. lines .. \n:}\n`|多行命令|
+|`:add [*]<module> ...`|添加模块|
+|`:browse[!] [[*]<mod>]`|查看模块信息, `!`详细显示|
+|`:cd <dir>`|改变当前目录|
+|`:ctags[!] [<file>]`|新建`ctags`文件, for vi[m]|
+|`:def <cmd> <expr>`|新建`cmd`, `:<cmd>`|
+|`:edit <file>`|编辑文件|
+|`:edit`|编辑最后一个模块|
+|`:etags [<file>]`|tags file for emacs|
+|`:help, :?`|打印帮助信息|
+|`:info[!] [<name> ...]`|显示关于`<name>`的有关信息|
+|`:issafe [<mod>]`|显示关于该模块的安全信息|
+|`:kind[!] <type>`|关于类型`<type>`的信息|
+|`:load[!] [*]<module> ...`|load module|
+|`:main [<arguments> ...]`|运行`main`函数|
+|`:module [+/-] [*]<mod> ...`|expression evaluation|
+|`:quit`|退出GHCI|
+|`:reload[!]`|重新加载当前模块集|
+|`:run function [<arguments> ...]`|运行`function`|
+|`:script <file>`|运行脚本|
+|`:undef <cmd>`|删除用户定义命令`<cmd>`|
+|`:!<sh-cmd>`|运行`shell cmd`|
 
 ## 模块
 
