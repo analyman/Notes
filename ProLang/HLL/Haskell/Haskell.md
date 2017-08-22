@@ -172,7 +172,7 @@ data Maybe a = Nothing | Just a
 **Available Commands:**
 
 |Commands|Description|
-|:------:|-----------|
+|--------|-----------|
 |`:`|重复上一个命令|
 |`:{\n .. lines .. \n:}\n`|多行命令|
 |`:add [*]<module> ...`|添加模块|
@@ -196,6 +196,49 @@ data Maybe a = Nothing | Just a
 |`:script <file>`|运行脚本|
 |`:undef <cmd>`|删除用户定义命令`<cmd>`|
 |`:!<sh-cmd>`|运行`shell cmd`|
+
+**Debug cmd:**
+
+|Commands|Description|
+|--------|-----------|
+|`:abandon`|在断点处放弃当前计算|
+|`:back [<n>]`|返回n步, `:trace`运行后|
+|`:break [<mod>] <l> [<col>]`|设置位置断点|
+`:break <funcName>`|设置函数断点|
+|`:coninue`|在断点处继续执行|
+|`:delete <number>`|删除指定的断点|
+|`:delete *`|删除所有断点|
+|`:dorce <expr>`|print `<expr>`|
+|`:foorward [<n>]`|前进 n 步, `:back`运行后|
+|`:history [<n>]`|打印执行历史, `:trace`运行后|
+|`:list`|打印断点附近的源码|
+|`:list <identifier>`|打印`<identifier>`附近源码|
+|`:list [<module>] <line>`|打印指定行附近源码|
+|`:print [<name> ...]`|打印值|
+|`:sprint [<name> ...]`|比`:print`更简单|
+|`:step`|执行一步在断点后|
+|`:step <expr>`|single-step into `<expr>`|
+|`:steplocal`|single-step within the current top-level bindin|
+|`:stepmodule`|single-step restricted to the current module|
+|`:trace`|trace after stoppingat a breakpoint|
+|`:trace <expr>`|evalute `<expr>` with tracing on|
+
+**Displaying information:**
+
+|Commands|Description|
+|--------|-----------|
+|`:show bindings`|show the current bindings made at the prompt|
+|`:show breaks`|show the active breakpoints|
+|`:show contest`|show the breakpoint context|
+|`:show imports`|show the current imports|
+|`:show linker`|show linker state|
+|`:show modules`|show the currently loaded modules|
+|`:show packages`|show the currently active package flags|
+|`:show paths`|show the currently active search paths|
+|`:show language`|show the currently active language flags|
+|`:show <setting>`|show value of `<setting>`|
+|`:showi language`|show language flags for interactive evaluation|
+
 
 ## 模块
 
