@@ -185,14 +185,23 @@ This is a example `echo "Hello!`.
 
 <h3 name="1"><span style="color:rgb(110,110,0)">1. 标题</span><h3>
 ```
-> Ascii Table  
+
+**Ascii 字符:**  
 
 ![ascii table](./img/asciifull.gif)
-``` markdown
-&#123;&#124;&#125;
-```
-**Final is this**  
-&#123;&#124;&#125;
+
+**其他特殊UTF-8字符:**
+
+*箭头:*
+
+|HTML表示|结果|HTML表示|结果|HTML表示|结果|HTML表示|结果|
+|--------|----|--------|----|--------|----|--------|----|
+|`&larr;`|&larr;|`&uarr;`|&uarr;|`&rarr;`|&rarr;|`&darr;`|&darr;|
+|`&lArr;`|&lArr;|`&uArr;`|&uArr;|`&rArr;`|&rArr;|`&dArr;`|&dArr;|
+|`&#8678;`|&#8678;|`&#8679;`|&#8679;|`&#8680;`|&#8680;|`&#8681;`|&#8681;|
+|`&hArr;`|&hArr;|`&harr;`|&harr;|`&crarr;`|&crarr;|`&#8634;`|&#8634;|
+
+
 
 ### 7. GitHub中使用的目录
 
