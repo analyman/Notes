@@ -8,25 +8,45 @@
 <h2 align="center"><span style="color:rgb(0,110,110)">Table of contents</span></h2>
 
 * [0. 基本操作](#0-基本操作)
-    * [0.1 操作](#01-操作)
-    * [0.2 Ex命令](#02-ex命令)
-    * [0.3 Buffer](#03-buffer)
-    * [0.4 tabPage](#04-tabpage)
-
+	* [0.1 操作](#01-操作)
+	* [0.2 Ex命令](#02-ex命令)
+	* [0.3 Buffer](#03-buffer)
+	* [0.4 tabPage](#04-tabpage)
 * [1. VIML基本语法](#1-viml基本语法)
-    * [1.1 条件语句](#11-条件语句)
-    * [1.2 循环语句](#12-循环语句)
-    * [1.3 函数](#13-函数)
-    * [1.4 自动命令](#14-自动命令)
-
+	* [1.1 条件语句](#11-条件语句)
+	* [1.2 循环语句](#12-循环语句)
+	* [1.3 函数](#13-函数)
+		* [Lambda](#lambda)
+	* [1.4 自动命令](#14-自动命令)
 * [2. 变量](#2-变量)
-    * [2.1 作用域](#21-作用域)
-    * [2.2 种类](#22-种类)
-        * [2.2.1 List](#list)
-        * [2.2.2 Dictionary](#dictionary)
-    * [2.3 例子](#23-例子)
-
+	* [2.1 作用域](#21-作用域)
+	* [2.2 类型](#22-类型)
+		* [2.2.1 List](#221-list)
+		* [2.2.2 Dictionary](#222-dictionary)
 * [3. 表达式](#3-表达式)
+* [4. 常用函数](#4-常用函数)
+	* [4.1 变量处理函数](#41-变量处理函数)
+		* [4.1.1 String](#411-string)
+		* [4.1.2 List](#412-list)
+		* [4.1.3 Dict](#413-dict)
+		* [4.1.4 Float](#414-float)
+		* [4.1.5 Vars Type](#415-vars-type)
+	* [4.2 Buffers, windows and the argument list](#42-buffers-windows-and-the-argument-list)
+		* [4.2.1 Agurment List](#421-agurment-list)
+		* [4.2.2 Buffer List](#422-buffer-list)
+		* [4.2.3 Windows](#423-windows)
+	* [4.3 Current Buffer](#43-current-buffer)
+	* [4.4 Cursor and Mark](#44-cursor-and-mark)
+	* [4.5 System](#45-system)
+	* [4.6 语法和高亮](#46-语法和高亮)
+	* [4.3 功能型函数](#43-功能型函数)
+	* [4.4 管理函数](#44-管理函数)
+	* [4.5 其他](#45-其他)
+		* [4.5.1 时间](#451-时间)
+		* [4.5.2 CMDLINE](#452-cmdline)
+* [5. 异常处理](#5-异常处理)
+	* [5.1 try-catch-finally-endtry](#51-trycatchfinallyendtry)
+	* [5.2 异常](#52-异常)
 
 ## 0. 基本操作
 
@@ -172,7 +192,7 @@ do[autocmd] [<nomodeline>] [group] {event} [fname]
 
 ### 2.1 作用域
 
-> VIMSCRIPT变量
+**VIMSCRIPT变量**
 
 * g:varname     全局变量
 * s:varname     脚本变量
@@ -183,7 +203,7 @@ do[autocmd] [<nomodeline>] [group] {event} [fname]
 * l:varname     函数局部变量
 * a:varname     函数参数
 
-> OTHERS
+**OTHERS**
 
 * &varname      varname为option
 * &g:varname    全局的
@@ -195,7 +215,7 @@ do[autocmd] [<nomodeline>] [group] {event} [fname]
 
 **VIML**的比较特殊的变量类型有`List(列表)`,`Directionary(字典)`
 
-#### List
+#### 2.2.1 List
 ``` vim
 " List
 let lst = ['a', 'b', 'c', 'd']
@@ -203,26 +223,6 @@ let lst = ['a', 'b', 'c', 'd']
 for ls in lst
     echo "the element is ".ls
 endfor
-
-" List function(函数)
-add(list, element)          " add elememt to list, change the value of list
-insert(list, element, index)" insert element to list before list[index], like add()
-extend(list1, list2)        " like + operate
-get(list, index, default)   " get the element of list by index, if index is over the list, then return default)
-getline(line1,line2)        " retuen a list, from the line1 to line2 in buffer
-append(lines, list)         " 将list中的元素一行一个的追加到第几行lines后面,'$'表示最后一个
-index(list, indexelement)   " get the index of list by indexelement, if the indexelement isn't exist in list, return -1
-len(list)                   " return the length of list
-empty(list)                 " equal len(list) == 0
-join(list, [seprate])       " join the all element of list into a string, and seprated by seprate(default is space), don't change the value of list
-split(list, [seprate])      " reverse to join()
-min(list)                   " min vaule
-max(list)                   " max vaule
-reverse(list)               " reverse the list, change the value of list, 反序
-sort(list)                  " sort the list, change the value of list, 排序
-uniq(list)                  " uniq the list, change the value of list
-remove(list, index1[, index2])  "remove the element in index1 to index2, like unlet operate
-filter(list, 'v:val !~ "x") " remove items with an 'x', 移除有'x'的元素
 
 " operate of list (list的操作)
 let list[0] = '0'           " 将list[0]赋为'0'
@@ -237,7 +237,9 @@ let [var1, var2] = list             " 当list元素个数与var个数不同会�
 unlet list[index1[:index2]]         " 和remove函数一样
 ```
 
-#### Dictionary
+[Function For List](#)
+
+#### 2.2.2 Dictionary
 
 **简单赋值的例子:**
 
@@ -295,19 +297,7 @@ endfunction
 let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 ```
 
-**Functions for Dictinaryes**
-
-``` vim
-has_key(dict, 'key')      "dict 存在 'key'则返回 True
-empty(dict)               "True if dict is empty
-len(dict)                 "Number of items in dict
-max(dict)                 "maximum value in dict
-min(dict)                 "minimum value in dict
-count(dict, 'x')          "count nr of times 'x' appears in dict
-string(dict)              " to string
-map (dict, '">> ".v:val') "map
-```
-这些函数同样可以用在**List**中
+[Function For Directionary](#)
 
 ## 3. 表达式
 
@@ -315,50 +305,61 @@ map (dict, '">> ".v:val') "map
 
 使用`:help functions`可以查看所有内建函数
 
-### 4.1 Buffer
+### 4.1 变量处理函数
 
-**indent({lnum})** &rarr; **Int** &rArr; 指定行的C语言规则缩进
+#### 4.1.1 String
 
-**cursor({lnum}, {col} [, {off}]), cursor({list})** &rArr; 移动光标到指定位置
+**printf()**	&rarr;	**Type**	&rArr;	format a string according to % items
 
-**getpos({exprpos})** &rarr; **List** &rArr; `(bufnum, lnum, col, off]`返回位置信息
+**match()**	&rarr;	**Type**	&rArr;	position where a pattern matches in a string
 
-**indent({lnum})** &rarr; **Int** &rArr; 指定行的缩进
+**matchend()**	&rarr;	**Type**	&rArr;	position where a pattern match ends in a string
 
-**line({exprpos})**根据表达式返回行数
+**matchstr()**	&rarr;	**Type**	&rArr;	match of a pattern in a string
 
-`{exprpos}`:
-    `.`     光标处
-    `$`     末行
-    `'x`    标记`x`处
-    `w0`    可视的第一行
-    `w$`    可视的最后一行
-    `v`     visual mode 下选择的第一行
+**matchstrpos()**	&rarr;	**Type**	&rArr;	match and positions of a pattern in a string
 
-**line2byte({lnum})**返回指定行的累计byte
+**matchlist()**	&rarr;	**Type**	&rArr;	like matchstr() and also return submatches
 
+**stridx()**	&rarr;	**Type**	&rArr;	first index of a short string in a long string
 
-### 4.2 List, Dict, String函数
+**strridx()**	&rarr;	**Type**	&rArr;	last index of a short string in a long string
 
-#### List
+**strdisplaywidth()**	&rarr;	**Type**	&rArr;	size of string when displayed, deals with tabs
 
-#### Dict
+**submatch()**	&rarr;	**Type**	&rArr;	get a specific match in ":s" and substitute()
 
-**keys({dict})** &rarr; **List**    &rArr;      返回`{dict}`的所有key
+**strpart()**	&rarr;	**Type**	&rArr;	get part of a string using byte index
 
-**values({dict})** &rarr; **List** &rArr;     返回`{dict}`的所有value
+**strcharpart()**	&rarr;	**Type**	&rArr;	get part of a string using char index
 
-**items({dict})** &rarr; **List** &rArr;      返回List of List, 形如"[[key, value]]"
+**strgetchar()**	&rarr;	**Type**	&rArr;	get character from a string using char index
 
-#### String
+**expand()**	&rarr;	**Type**	&rArr;	expand special keywords
 
-**char2nr({char})** &rarr; **Int** &rArr; 将字符根据编码转化为数值
+**iconv()**	&rarr;	**Type**	&rArr;	convert text from one encoding to another
+
+**byteidx()**	&rarr;	**Type**	&rArr;	byte index of a character in a string
+
+**byteidxcomp()**	&rarr;	**Type**	&rArr;	like byteidx() but count composing characters
+
+**repeat()**	&rarr;	**Type**	&rArr;	repeat a string multiple times
+
+**execute()**	&rarr;	**Type**	&rArr;	execute an Ex command and get the output
 
 **nr2char({Int})** &rarr; **Char** &rArr; 和**char2nr()**相反
+
+**char2nr({char})** &rarr; **Int** &rArr; 将字符根据编码转化为数值
 
 **str2nr({str})** &rarr; **Nums** &rArr; 将字符串转化为数字
 
 **str2float({Str})** &rarr; **Float** &rArr; 将字符串转化为浮点数
+
+**escape({string})** &rarr; **String** &rArr; 将需要转义的字符转义
+
+**shellescape({String})** &rarr; **String** &rArr; 将shell cmd转义
+
+**fnameescape({String})** &rarr; **String** &rArr; 将文件名转义
 
 **tolower({String})** &rarr; **String** &rArr; 转化为小写
 
@@ -379,17 +380,403 @@ map (dict, '">> ".v:val') "map
 
 **strwidth({String})** &rarr; **Int** &rArr; 显示占位
 
-**escape({string})** &rarr; **String** &rArr; 将需要转义的字符转义
-
-**shellescape({String})** &rarr; **String** &rArr; 将shell cmd转义
-
-**fnameescape({String})** &rarr; **String** &rArr; 将文件名转义
-
 **eval({string})** &rarr; **其他类型数值** &rArr; 和**String()**相反
 
 + eval()只能转换**Numbers, Float, String, Component of them and funcref()**
 
 **string({vars-expr})** &rarr; **String** &rArr;  将其他类型数值转化为变量
+
+#### 4.1.2 List
+
+**get()**	&rarr;	**Type**	&rArr;get an item without error for wrong index	
+
+**len()**	&rarr;	**Type**	&rArr;number of items in a List	
+
+**empty()**	&rarr;	**Type**	&rArr;check if List is empty	
+
+**insert()**	&rarr;	**Type**	&rArr;insert an item somewhere in a List	
+
+**add()**	&rarr;	**Type**	&rArr;append an item to a List	
+
+**extend()**	&rarr;	**Type**	&rArr;append a List to a List	
+
+**remove()**	&rarr;	**Type**	&rArr;remove one or more items from a List	
+
+**copy()**	&rarr;	**Type**	&rArr;make a shallow copy of a List	
+
+**deepcopy()**	&rarr;	**Type**	&rArr;make a full copy of a List	
+
+**filter()**	&rarr;	**Type**	&rArr;remove selected items from a List	
+
+**map()**	&rarr;	**Type**	&rArr;change each List item	
+
+**sort()**	&rarr;	**Type**	&rArr;sort a List	
+
+**reverse()**	&rarr;	**Type**	&rArr;reverse the order of a List	
+
+**uniq()**	&rarr;	**Type**	&rArr;remove copies of repeated adjacent items	
+
+**split()**	&rarr;	**Type**	&rArr;split a String into a List	
+
+**join()**	&rarr;	**Type**	&rArr;join List items into a String	
+
+**range()**	&rarr;	**Type**	&rArr;return a List with a sequence of numbers	
+
+**string()**	&rarr;	**Type**	&rArr;String representation of a List	
+
+**call()**	&rarr;	**Type**	&rArr;call a function with List as arguments	
+
+**index()**	&rarr;	**Type**	&rArr;index of a value in a List	
+
+**max()**	&rarr;	**Type**	&rArr;maximum value in a List	
+
+**min()**	&rarr;	**Type**	&rArr;minimum value in a List	
+
+**count()**	&rarr;	**Type**	&rArr;count number of times a value appears in a List	
+
+**repeat()**	&rarr;	**Type**	&rArr;repeat a List multiple times	
+
+
+#### 4.1.3 Dict
+
+**keys({dict})** &rarr; **List**    &rArr;      返回`{dict}`的所有key
+
+**values({dict})** &rarr; **List** &rArr;     返回`{dict}`的所有value
+
+**items({dict})** &rarr; **List** &rArr;      返回List of List, 形如"[[key, value]]"
+
+#### 4.1.4 Float
+
+**float2nr()**	&rarr;	**Type**	&rArr;convert Float to Number	
+
+**abs()**	&rarr;	**Type**	&rArr;absolute value (also works for Number)	
+
+**round()**	&rarr;	**Type**	&rArr;round off	
+
+**ceil()**	&rarr;	**Type**	&rArr;round up	
+
+**floor()**	&rarr;	**Type**	&rArr;round down	
+
+**trunc()**	&rarr;	**Type**	&rArr;remove value after decimal point	
+
+**fmod()**	&rarr;	**Type**	&rArr;remainder of division	
+
+**exp()**	&rarr;	**Type**	&rArr;exponential	
+
+**log()**	&rarr;	**Type**	&rArr;natural logarithm (logarithm to base e)	
+
+**log10()**	&rarr;	**Type**	&rArr;logarithm to base 10	
+
+**pow()**	&rarr;	**Type**	&rArr;value of x to the exponent y	
+
+**sqrt()**	&rarr;	**Type**	&rArr;square root	
+
+**sin()**	&rarr;	**Type**	&rArr;sine	
+
+**cos()**	&rarr;	**Type**	&rArr;cosine	
+
+**tan()**	&rarr;	**Type**	&rArr;tangent	
+
+**asin()**	&rarr;	**Type**	&rArr;arc sine	
+
+**acos()**	&rarr;	**Type**	&rArr;arc cosine	
+
+**atan()**	&rarr;	**Type**	&rArr;arc tangent	
+
+**atan2()**	&rarr;	**Type**	&rArr;arc tangent	
+
+**sinh()**	&rarr;	**Type**	&rArr;hyperbolic sine	
+
+**cosh()**	&rarr;	**Type**	&rArr;hyperbolic cosine	
+
+**tanh()**	&rarr;	**Type**	&rArr;hyperbolic tangent	
+
+**isnan()**	&rarr;	**Type**	&rArr;check for not a number	
+
+
+#### 4.1.5 Vars Type
+
+**type()**	&rarr;	**Type**	&rArr;type of a variable	
+
+**islocked()**	&rarr;	**Type**	&rArr;check if a variable is locked	
+
+**funcref()**	&rarr;	**Type**	&rArr;get a Funcref for a function reference	
+
+**function()**	&rarr;	**Type**	&rArr;get a Funcref for a function name	
+
+**getbufvar()**	&rarr;	**Type**	&rArr;get a variable value from a specific buffer	
+
+**setbufvar()**	&rarr;	**Type**	&rArr;set a variable in a specific buffer	
+
+**getwinvar()**	&rarr;	**Type**	&rArr;get a variable from specific window	
+
+**gettabvar()**	&rarr;	**Type**	&rArr;get a variable from specific tab page	
+
+**gettabwinvar()**	&rarr;	**Type**	&rArr;get a variable from specific window & tab page	
+
+**setwinvar()**	&rarr;	**Type**	&rArr;set a variable in a specific window	
+
+**settabvar()**	&rarr;	**Type**	&rArr;set a variable in a specific tab page	
+
+**settabwinvar()**	&rarr;	**Type**	&rArr;set a variable in a specific window & tab page	
+
+**garbagecollect()**	&rarr;	**Type**	&rArr;possibly free memory	
+
+
+### 4.2 Buffers, windows and the argument list
+
+#### 4.2.1 Agurment List
+
+**argc()**	&rarr;	**Type**	&rArr;number of entries in the argument list	
+
+**argidx()**	&rarr;	**Type**	&rArr;current position in the argument list	
+
+**arglistid()**	&rarr;	**Type**	&rArr;get id of the argument list	
+
+**argv()**	&rarr;	**Type**	&rArr;get one entry from the argument list	
+
+
+#### 4.2.2 Buffer List
+
+**bufexists()**	&rarr;	**Type**	&rArr;check if a buffer exists	
+
+**buflisted()**	&rarr;	**Type**	&rArr;check if a buffer exists and is listed	
+
+**bufloaded()**	&rarr;	**Type**	&rArr;check if a buffer exists and is loaded	
+
+**bufname()**	&rarr;	**Type**	&rArr;get the name of a specific buffer	
+
+**bufnr()**	&rarr;	**Type**	&rArr;get the buffer number of a specific buffer	
+
+**tabpagebuflist()**	&rarr;	**Type**	&rArr;return List of buffers in a tab page	
+
+**tabpagenr()**	&rarr;	**Type**	&rArr;get the number of a tab page	
+
+**tabpagewinnr()**	&rarr;	**Type**	&rArr;like winnr() for a specified tab page	
+
+**bufwinid()**	&rarr;	**Type**	&rArr;get the window ID of a specific buffer	
+
+**bufwinnr()**	&rarr;	**Type**	&rArr;get the window number of a specific buffer	
+
+**winbufnr()**	&rarr;	**Type**	&rArr;get the buffer number of a specific window	
+
+**getbufline()**	&rarr;	**Type**	&rArr;get a list of lines from the specified buffer	
+
+
+#### 4.2.3 Windows
+
+**win_findbuf()**	&rarr;	**Type**	&rArr;find windows containing a buffer	
+
+**winnr()**	&rarr;	**Type**	&rArr;get the window number for the current window	
+
+**win_getid()**	&rarr;	**Type**	&rArr;get window ID of a window	
+
+**win_gotoid()**	&rarr;	**Type**	&rArr;go to window with ID	
+
+**win_id2tabwin()**	&rarr;	**Type**	&rArr;get tab and window nr from window ID	
+
+**win_id2win()**	&rarr;	**Type**	&rArr;get window nr from window ID	
+
+**getbufinfo()**	&rarr;	**Type**	&rArr;get a list with buffer information	
+
+**gettabinfo()**	&rarr;	**Type**	&rArr;get a list with tab page information	
+
+**getwininfo()**	&rarr;	**Type**	&rArr;get a list with window information	
+
+**winheight()**	&rarr;	**Type**	&rArr;get height of a specific window	
+
+**winwidth()**	&rarr;	**Type**	&rArr;get width of a specific window	
+
+**winrestcmd()**	&rarr;	**Type**	&rArr;return command to restore window sizes	
+
+**winsaveview()**	&rarr;	**Type**	&rArr;get view of current window	
+
+**winrestview()**	&rarr;	**Type**	&rArr;restore saved view of current window	
+
+
+### 4.3 Current Buffer
+
+**getline()**	&rarr;	**Type**	&rArr;get a line or list of lines from the buffer	
+
+**setline()**	&rarr;	**Type**	&rArr;replace a line in the buffer	
+
+**append()**	&rarr;	**Type**	&rArr;append line or list of lines in the buffer	
+
+**indent()**	&rarr;	**Type**	&rArr;indent of a specific line	
+
+**cindent()**	&rarr;	**Type**	&rArr;indent according to C indenting	
+
+**lispindent()**	&rarr;	**Type**	&rArr;indent according to Lisp indenting	
+
+**nextnonblank()**	&rarr;	**Type**	&rArr;find next non-blank line	
+
+**prevnonblank()**	&rarr;	**Type**	&rArr;find previous non-blank line	
+
+**search()**	&rarr;	**Type**	&rArr;find a match for a pattern	
+
+**searchpos()**	&rarr;	**Type**	&rArr;find a match for a pattern	
+
+**searchpair()**	&rarr;	**Type**	&rArr;find the other end of a start/skip/end	
+
+**searchpairpos()**	&rarr;	**Type**	&rArr;find the other end of a start/skip/end	
+
+**searchdecl()**	&rarr;	**Type**	&rArr;search for the declaration of a name	
+
+**getcharsearch()**	&rarr;	**Type**	&rArr;return character search information	
+
+**setcharsearch()**	&rarr;	**Type**	&rArr;set character search information	
+
+
+**indent({lnum})** &rarr; **Int** &rArr; 指定行的C语言规则缩进
+
+**cursor({lnum}, {col} [, {off}]), cursor({list})** &rArr; 移动光标到指定位置
+
+**getpos({exprpos})** &rarr; **List** &rArr; `(bufnum, lnum, col, off]`返回位置信息
+
+**indent({lnum})** &rarr; **Int** &rArr; 指定行的缩进
+
+**line({exprpos})** &rarr; **Int** &rArr; 根据表达式返回行数
+
+`{exprpos}`:
+
++    `.`     光标处
++    `$`     末行
++    `'x`    标记`x`处
++    `w0`    可视的第一行
++    `w$`    可视的最后一行
++    `v`     visual mode 下选择的第一行
+
+**line2byte({lnum})**返回指定行的累计byte
+
+### 4.4 Cursor and Mark
+
+**col()**	&rarr;	**Type**	&rArr;column number of the cursor or a mark	
+
+**virtcol()**	&rarr;	**Type**	&rArr;screen column of the cursor or a mark	
+
+**line()**	&rarr;	**Type**	&rArr;line number of the cursor or mark	
+
+**wincol()**	&rarr;	**Type**	&rArr;window column number of the cursor	
+
+**winline()**	&rarr;	**Type**	&rArr;window line number of the cursor	
+
+**cursor()**	&rarr;	**Type**	&rArr;position the cursor at a line/column	
+
+**screencol()**	&rarr;	**Type**	&rArr;get screen column of the cursor	
+
+**screenrow()**	&rarr;	**Type**	&rArr;get screen row of the cursor	
+
+**getcurpos()**	&rarr;	**Type**	&rArr;get position of the cursor	
+
+**getpos()**	&rarr;	**Type**	&rArr;get position of cursor, mark, etc.	
+
+**setpos()**	&rarr;	**Type**	&rArr;set position of cursor, mark, etc.	
+
+**byte2line()**	&rarr;	**Type**	&rArr;get line number at a specific byte count	
+
+**line2byte()**	&rarr;	**Type**	&rArr;byte count at a specific line	
+
+**diff_filler()**	&rarr;	**Type**	&rArr;get the number of filler lines above a line	
+
+**screenattr()**	&rarr;	**Type**	&rArr;get attribute at a screen line/row	
+
+**screenchar()**	&rarr;	**Type**	&rArr;get character code at a screen line/row	
+
+
+### 4.5 System
+
+**glob()**	&rarr;	**Type**	&rArr;expand wildcards	
+
+**globpath()**	&rarr;	**Type**	&rArr;expand wildcards in a number of directories	
+
+**glob2regpat()**	&rarr;	**Type**	&rArr;convert a glob pattern into a search pattern	
+
+**findfile()**	&rarr;	**Type**	&rArr;find a file in a list of directories	
+
+**finddir()**	&rarr;	**Type**	&rArr;find a directory in a list of directories	
+
+**resolve()**	&rarr;	**Type**	&rArr;find out where a shortcut points to	
+
+**fnamemodify()**	&rarr;	**Type**	&rArr;modify a file name	
+
+**pathshorten()**	&rarr;	**Type**	&rArr;shorten directory names in a path	
+
+**simplify()**	&rarr;	**Type**	&rArr;simplify a path without changing its meaning	
+
+**executable()**	&rarr;	**Type**	&rArr;check if an executable program exists	
+
+**exepath()**	&rarr;	**Type**	&rArr;full path of an executable program	
+
+**filereadable()**	&rarr;	**Type**	&rArr;check if a file can be read	
+
+**filewritable()**	&rarr;	**Type**	&rArr;check if a file can be written to	
+
+**getfperm()**	&rarr;	**Type**	&rArr;get the permissions of a file	
+
+**setfperm()**	&rarr;	**Type**	&rArr;set the permissions of a file	
+
+**getftype()**	&rarr;	**Type**	&rArr;get the kind of a file	
+
+**isdirectory()**	&rarr;	**Type**	&rArr;check if a directory exists	
+
+**getfsize()**	&rarr;	**Type**	&rArr;get the size of a file	
+
+**getcwd()**	&rarr;	**Type**	&rArr;get the current working directory	
+
+**haslocaldir()**	&rarr;	**Type**	&rArr;check if current window used |:lcd|	
+
+**tempname()**	&rarr;	**Type**	&rArr;get the name of a temporary file	
+
+**mkdir()**	&rarr;	**Type**	&rArr;create a new directory	
+
+**delete()**	&rarr;	**Type**	&rArr;delete a file	
+
+**rename()**	&rarr;	**Type**	&rArr;rename a file	
+
+**system()**	&rarr;	**Type**	&rArr;get the result of a shell command as a string	
+
+**systemlist()**	&rarr;	**Type**	&rArr;get the result of a shell command as a list	
+
+**hostname()**	&rarr;	**Type**	&rArr;name of the system	
+
+**readfile()**	&rarr;	**Type**	&rArr;read a file into a List of lines	
+
+**writefile()**	&rarr;	**Type**	&rArr;write a List of lines into a file	
+
+
+### 4.6 语法和高亮
+
+**clearmatches()**	&rarr;	**Type**	&rArr;clear all matches defined by |matchadd()| and	
+
+            the |:match| commands
+**getmatches()**	&rarr;	**Type**	&rArr;get all matches defined by |matchadd()| and	
+
+            the |:match| commands
+**hlexists()**	&rarr;	**Type**	&rArr;check if a highlight group exists	
+
+**hlID()**	&rarr;	**Type**	&rArr;get ID of a highlight group	
+
+**synID()**	&rarr;	**Type**	&rArr;get syntax ID at a specific position	
+
+**synIDattr()**	&rarr;	**Type**	&rArr;get a specific attribute of a syntax ID	
+
+**synIDtrans()**	&rarr;	**Type**	&rArr;get translated syntax ID	
+
+**synstack()**	&rarr;	**Type**	&rArr;get list of syntax IDs at a specific position	
+
+**synconcealed()**	&rarr;	**Type**	&rArr;get info about concealing	
+
+**diff_hlID()**	&rarr;	**Type**	&rArr;get highlight ID for diff mode at a position	
+
+**matchadd()**	&rarr;	**Type**	&rArr;define a pattern to highlight (a "match")	
+
+**matchaddpos()**	&rarr;	**Type**	&rArr;define a list of positions to highlight	
+
+**matcharg()**	&rarr;	**Type**	&rArr;get info about |:match| arguments	
+
+**matchdelete()**	&rarr;	**Type**	&rArr;delete a match defined by |matchadd()| or a |:match| command
+
+**setmatches()**	&rarr;	**Type**	&rArr;restore a list of matches saved by getmatches()
 
 ### 4.3 功能型函数
 
@@ -429,6 +816,67 @@ map (dict, '">> ".v:val') "map
 
 ### 4.5 其他
 
+#### 4.5.1 时间
+
+**getftime()**	&rarr;	**Type**	&rArr;get last modification time of a file	
+
+**localtime()**	&rarr;	**Type**	&rArr;get current time in seconds	
+
+**strftime()**	&rarr;	**Type**	&rArr;convert time to a string	
+
+**reltime()**	&rarr;	**Type**	&rArr;get the current or elapsed time accurately	
+
+**reltimestr()**	&rarr;	**Type**	&rArr;convert reltime() result to a string	
+
+**reltimefloat()**	&rarr;	**Type**	&rArr;convert reltime() result to a Float	
+
+#### 4.5.2 CMDLINE
+
+**getcmdline()**	&rarr;	**Type**	&rArr;get the current command line	
+
+**getcmdpos()**	&rarr;	**Type**	&rArr;get position of the cursor in the command line	
+
+**setcmdpos()**	&rarr;	**Type**	&rArr;set position of the cursor in the command line	
+
+**getcmdtype()**	&rarr;	**Type**	&rArr;return the current command-line type	
+
+**getcmdwintype()**	&rarr;	**Type**	&rArr;return the current command-line window type	
+
+**getcompletion()**	&rarr;	**Type**	&rArr;list of command-line completion matches	
+
 **deepcopy({expr}[, noref])** &aArr; 复制变量
 
 **trunc({Num-float})** &rarr; **Int** &rArr; 取不大于`{Num-float}`的整数
+
+## 5. 异常处理
+
+### 5.1 try-catch-finally-endtry
+
+一个简单的例子:
+
+``` vim
+function! s:mmm()
+    try
+        if !(has('g:test_var'))
+            throw "test_error"
+        endif
+        echo "ok"
+    catch /^test_error$/
+        echo "test error appear, how to deal with it?"
+        echo "catch " . v:exception . " in ". v:throwpoint. "!"
+    catch /^.*$/
+        echo "Unknow Exception in function mmm()!"
+        echo "catch " . v:exception . " in ". v:throwpoint. "!"
+    finally
+        echo "test finish"
+    endtry
+endfunction
+```
+
++ 使用`throw`抛出异常
++ 内建变量`v:exception`表示最近抛出且未`finally`的异常
++ 内建变量`v:throwpoint`为抛出异常的位置
+
+### 5.2 异常
+
+VIM中的异常只是个字符串, 使用`v:exception`储存最后一次抛出的未被`finally`的异常, 使用`v:throwpoint`表示此次异常的抛出位置
