@@ -39,11 +39,9 @@
 	* [4.4 Cursor and Mark](#44-cursor-and-mark)
 	* [4.5 System](#45-system)
 	* [4.6 语法和高亮](#46-语法和高亮)
-	* [4.3 功能型函数](#43-功能型函数)
-	* [4.4 管理函数](#44-管理函数)
-	* [4.5 其他](#45-其他)
-		* [4.5.1 时间](#451-时间)
-		* [4.5.2 CMDLINE](#452-cmdline)
+	* [4.7 其他](#47-其他)
+		* [4.7.1 时间](#471-时间)
+		* [4.7.2 CMDLINE](#472-cmdline)
 * [5. 异常处理](#5-异常处理)
 	* [5.1 try-catch-finally-endtry](#51-trycatchfinallyendtry)
 	* [5.2 异常](#52-异常)
@@ -237,7 +235,7 @@ let [var1, var2] = list             " 当list元素个数与var个数不同会�
 unlet list[index1[:index2]]         " 和remove函数一样
 ```
 
-[Function For List](#)
+[Function For List](#412-list)
 
 #### 2.2.2 Dictionary
 
@@ -297,7 +295,7 @@ endfunction
 let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 ```
 
-[Function For Directionary](#)
+[Function For Directionary](#413-dict)
 
 ## 3. 表达式
 
@@ -307,9 +305,18 @@ let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 
 ### 4.1 变量处理函数
 
+**getreg([{regName}[, 1[, list]]])** 获取寄存器内容
+
++ `1`选项指定则
+
+**setreg([{regName}[, value[, <mode>]]])** 用于设置寄存器内容
+
 #### 4.1.1 String
 
-**printf()**	&rarr;	**Type**	&rArr;	format a string according to % items
+**printf({fmt}, {expr} ...)**	&rarr;	**IO()**	&rArr;  格式化输出和C语言类似
+
++ 格式化字符格式`%[flags][field-width][.precision]{type}`
++ 详见`:help printf()`
 
 **match()**	&rarr;	**Type**	&rArr;	position where a pattern matches in a string
 
@@ -388,53 +395,61 @@ let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 
 #### 4.1.2 List
 
-**get()**	&rarr;	**Type**	&rArr;get an item without error for wrong index	
+**get({List}, {index} [, default])**	&rarr;	**Type**	&rArr;  get an item without error for wrong index
 
-**len()**	&rarr;	**Type**	&rArr;number of items in a List	
+**len({List | Dict})**	&rarr;	**Int**	&rArr;  number of items in a List
 
-**empty()**	&rarr;	**Type**	&rArr;check if List is empty	
+**empty({List})**	&rarr;	**Boolean**	&rArr;  check if List is empty
 
-**insert()**	&rarr;	**Type**	&rArr;insert an item somewhere in a List	
+**insert({list}, {value} [, idx])**	&rarr;	**List**	&rArr;  insert an item somewhere in a List
 
-**add()**	&rarr;	**Type**	&rArr;append an item to a List	
++ `[idx]`为 0, 插入首元素
++ `[idx]`为 `len{List}`或 -1 同`add()`
++ 改变参数List的值
 
-**extend()**	&rarr;	**Type**	&rArr;append a List to a List	
+**add({list}, {value})**	&rarr;	**Type**	&rArr;  append an item to a List
 
-**remove()**	&rarr;	**Type**	&rArr;remove one or more items from a List	
++ 改变参数List的值
 
-**copy()**	&rarr;	**Type**	&rArr;make a shallow copy of a List	
+**extend()**	&rarr;	**Type**	&rArr;  append a List to a List
 
-**deepcopy()**	&rarr;	**Type**	&rArr;make a full copy of a List	
+**remove({List | Dict}, {start | key} [, end])**	&rarr;	**List | Dict**	&rArr;  remove one or more items from a List
 
-**filter()**	&rarr;	**Type**	&rArr;remove selected items from a List	
++ 改变参数List的值
 
-**map()**	&rarr;	**Type**	&rArr;change each List item	
+**copy({List})**	&rarr;	**List**	&rArr;  make a shallow copy of a List
 
-**sort()**	&rarr;	**Type**	&rArr;sort a List	
+**deepcopy({List})**	&rarr;	**List**	&rArr;  make a full copy of a List
 
-**reverse()**	&rarr;	**Type**	&rArr;reverse the order of a List	
+**filter({List | Dict}, {Funcref})**	&rarr;	**List | Dict**	&rArr;  remove selected items from a List
 
-**uniq()**	&rarr;	**Type**	&rArr;remove copies of repeated adjacent items	
+**map({List | Dict}, {Funcref})**	&rarr;	**List | Dict**	&rArr;  change each List item
 
-**split()**	&rarr;	**Type**	&rArr;split a String into a List	
+**sort()**	&rarr;	**Type**	&rArr;  sort a List
 
-**join()**	&rarr;	**Type**	&rArr;join List items into a String	
+**reverse()**	&rarr;	**Type**	&rArr;	reverse the order of a List
 
-**range()**	&rarr;	**Type**	&rArr;return a List with a sequence of numbers	
+**uniq()**	&rarr;	**Type**	&rArr;	remove copies of repeated adjacent items
 
-**string()**	&rarr;	**Type**	&rArr;String representation of a List	
+**split()**	&rarr;	**Type**	&rArr;	split a String into a List
 
-**call()**	&rarr;	**Type**	&rArr;call a function with List as arguments	
+**join()**	&rarr;	**Type**	&rArr;	join List items into a String
 
-**index()**	&rarr;	**Type**	&rArr;index of a value in a List	
+**range()**	&rarr;	**Type**	&rArr;	return a List with a sequence of numbers
 
-**max()**	&rarr;	**Type**	&rArr;maximum value in a List	
+**string()**	&rarr;	**Type**	&rArr;	String representation of a List
 
-**min()**	&rarr;	**Type**	&rArr;minimum value in a List	
+**call()**	&rarr;	**Type**	&rArr;	call a function with List as arguments
 
-**count()**	&rarr;	**Type**	&rArr;count number of times a value appears in a List	
+**index()**	&rarr;	**Type**	&rArr;	index of a value in a List
 
-**repeat()**	&rarr;	**Type**	&rArr;repeat a List multiple times	
+**max()**	&rarr;	**Type**	&rArr;	maximum value in a List
+
+**min()**	&rarr;	**Type**	&rArr;	minimum value in a List
+
+**count()**	&rarr;	**Type**	&rArr;	count number of times a value appears in a List
+
+**repeat()**	&rarr;	**Type**	&rArr;	repeat a List multiple times
 
 
 #### 4.1.3 Dict
@@ -447,184 +462,197 @@ let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 
 #### 4.1.4 Float
 
-**float2nr()**	&rarr;	**Type**	&rArr;convert Float to Number	
+**float2nr()**	&rarr;	**Type**	&rArr;	convert Float to Number
 
-**abs()**	&rarr;	**Type**	&rArr;absolute value (also works for Number)	
+**abs()**	&rarr;	**Type**	&rArr;	absolute value (also works for Number)
 
-**round()**	&rarr;	**Type**	&rArr;round off	
+**round()**	&rarr;	**Type**	&rArr;	round off
 
-**ceil()**	&rarr;	**Type**	&rArr;round up	
+**ceil()**	&rarr;	**Type**	&rArr;	round up
 
-**floor()**	&rarr;	**Type**	&rArr;round down	
+**floor()**	&rarr;	**Type**	&rArr;	round down
 
-**trunc()**	&rarr;	**Type**	&rArr;remove value after decimal point	
+**trunc()**	&rarr;	**Type**	&rArr;	remove value after decimal point
 
-**fmod()**	&rarr;	**Type**	&rArr;remainder of division	
+**fmod()**	&rarr;	**Type**	&rArr;	remainder of division
 
-**exp()**	&rarr;	**Type**	&rArr;exponential	
+**exp()**	&rarr;	**Type**	&rArr;	exponential
 
-**log()**	&rarr;	**Type**	&rArr;natural logarithm (logarithm to base e)	
+**log()**	&rarr;	**Type**	&rArr;	natural logarithm (logarithm to base e)
 
-**log10()**	&rarr;	**Type**	&rArr;logarithm to base 10	
+**log10()**	&rarr;	**Type**	&rArr;	logarithm to base 10
 
-**pow()**	&rarr;	**Type**	&rArr;value of x to the exponent y	
+**pow()**	&rarr;	**Type**	&rArr;	value of x to the exponent y
 
-**sqrt()**	&rarr;	**Type**	&rArr;square root	
+**sqrt()**	&rarr;	**Type**	&rArr;	square root
 
-**sin()**	&rarr;	**Type**	&rArr;sine	
+**sin()**	&rarr;	**Type**	&rArr;	sine
 
-**cos()**	&rarr;	**Type**	&rArr;cosine	
+**cos()**	&rarr;	**Type**	&rArr;	cosine
 
-**tan()**	&rarr;	**Type**	&rArr;tangent	
+**tan()**	&rarr;	**Type**	&rArr;	tangent
 
-**asin()**	&rarr;	**Type**	&rArr;arc sine	
+**asin()**	&rarr;	**Type**	&rArr;	arc sine
 
-**acos()**	&rarr;	**Type**	&rArr;arc cosine	
+**acos()**	&rarr;	**Type**	&rArr;	arc cosine
 
-**atan()**	&rarr;	**Type**	&rArr;arc tangent	
+**atan()**	&rarr;	**Type**	&rArr;	arc tangent
 
-**atan2()**	&rarr;	**Type**	&rArr;arc tangent	
+**atan2()**	&rarr;	**Type**	&rArr;	arc tangent
 
-**sinh()**	&rarr;	**Type**	&rArr;hyperbolic sine	
+**sinh()**	&rarr;	**Type**	&rArr;	hyperbolic sine
 
-**cosh()**	&rarr;	**Type**	&rArr;hyperbolic cosine	
+**cosh()**	&rarr;	**Type**	&rArr;	hyperbolic cosine
 
-**tanh()**	&rarr;	**Type**	&rArr;hyperbolic tangent	
+**tanh()**	&rarr;	**Type**	&rArr;	hyperbolic tangent
 
-**isnan()**	&rarr;	**Type**	&rArr;check for not a number	
+**isnan()**	&rarr;	**Type**	&rArr;	check for not a number
 
 
 #### 4.1.5 Vars Type
 
-**type()**	&rarr;	**Type**	&rArr;type of a variable	
+**type({expr})** &rarr; **Int** &rArr; 用于获取变量的类型
 
-**islocked()**	&rarr;	**Type**	&rArr;check if a variable is locked	
+|类型|Value|内建变量|
+|----|:---:|--------|
+|Number |0|v:t_number|
+|String |1|v:t_string|
+|Funcref|2|v:t_func|
+|List   |3|v:t_list|
+|Dictionary|4|v:t_dict|
+|Float|5|v:t_float|
+|Boolean|6|v:bool|
+|None|7|v:t_none|
+|Job|8|v:t_job|
+|Channel|9|v:t_channel|
 
-**funcref()**	&rarr;	**Type**	&rArr;get a Funcref for a function reference	
+**islocked()**	&rarr;	**Type**	&rArr;	check if a variable is locked
 
-**function()**	&rarr;	**Type**	&rArr;get a Funcref for a function name	
+**funcref()**	&rarr;	**Type**	&rArr;	get a Funcref for a function reference
 
-**getbufvar()**	&rarr;	**Type**	&rArr;get a variable value from a specific buffer	
+**function()**	&rarr;	**Type**	&rArr;	get a Funcref for a function name
 
-**setbufvar()**	&rarr;	**Type**	&rArr;set a variable in a specific buffer	
+**getbufvar()**	&rarr;	**Type**	&rArr;	get a variable value from a specific buffer
 
-**getwinvar()**	&rarr;	**Type**	&rArr;get a variable from specific window	
+**setbufvar()**	&rarr;	**Type**	&rArr;	set a variable in a specific buffer
 
-**gettabvar()**	&rarr;	**Type**	&rArr;get a variable from specific tab page	
+**getwinvar()**	&rarr;	**Type**	&rArr;	get a variable from specific window
 
-**gettabwinvar()**	&rarr;	**Type**	&rArr;get a variable from specific window & tab page	
+**gettabvar()**	&rarr;	**Type**	&rArr;	get a variable from specific tab page
 
-**setwinvar()**	&rarr;	**Type**	&rArr;set a variable in a specific window	
+**gettabwinvar()**	&rarr;	**Type**	&rArr;	get a variable from specific window & tab page
 
-**settabvar()**	&rarr;	**Type**	&rArr;set a variable in a specific tab page	
+**setwinvar()**	&rarr;	**Type**	&rArr;	set a variable in a specific window
 
-**settabwinvar()**	&rarr;	**Type**	&rArr;set a variable in a specific window & tab page	
+**settabvar()**	&rarr;	**Type**	&rArr;	set a variable in a specific tab page
 
-**garbagecollect()**	&rarr;	**Type**	&rArr;possibly free memory	
+**settabwinvar()**	&rarr;	**Type**	&rArr;	set a variable in a specific window & tab page
+
+**garbagecollect()**	&rarr;	**Type**	&rArr;	possibly free memory
 
 
 ### 4.2 Buffers, windows and the argument list
 
 #### 4.2.1 Agurment List
 
-**argc()**	&rarr;	**Type**	&rArr;number of entries in the argument list	
+**argc()**	&rarr;	**Type**	&rArr;	number of entries in the argument list
 
-**argidx()**	&rarr;	**Type**	&rArr;current position in the argument list	
+**argidx()**	&rarr;	**Type**	&rArr;	current position in the argument list
 
-**arglistid()**	&rarr;	**Type**	&rArr;get id of the argument list	
+**arglistid()**	&rarr;	**Type**	&rArr;	get id of the argument list
 
-**argv()**	&rarr;	**Type**	&rArr;get one entry from the argument list	
+**argv()**	&rarr;	**Type**	&rArr;	get one entry from the argument list
 
 
 #### 4.2.2 Buffer List
 
-**bufexists()**	&rarr;	**Type**	&rArr;check if a buffer exists	
+**bufexists()**	&rarr;	**Type**	&rArr;	check if a buffer exists
 
-**buflisted()**	&rarr;	**Type**	&rArr;check if a buffer exists and is listed	
+**buflisted()**	&rarr;	**Type**	&rArr;	check if a buffer exists and is listed
 
-**bufloaded()**	&rarr;	**Type**	&rArr;check if a buffer exists and is loaded	
+**bufloaded()**	&rarr;	**Type**	&rArr;	check if a buffer exists and is loaded
 
-**bufname()**	&rarr;	**Type**	&rArr;get the name of a specific buffer	
+**bufname()**	&rarr;	**Type**	&rArr;	get the name of a specific buffer
 
-**bufnr()**	&rarr;	**Type**	&rArr;get the buffer number of a specific buffer	
+**bufnr()**	&rarr;	**Type**	&rArr;	get the buffer number of a specific buffer
 
-**tabpagebuflist()**	&rarr;	**Type**	&rArr;return List of buffers in a tab page	
+**tabpagebuflist()**	&rarr;	**Type**	&rArr;	return List of buffers in a tab page
 
-**tabpagenr()**	&rarr;	**Type**	&rArr;get the number of a tab page	
+**tabpagenr()**	&rarr;	**Type**	&rArr;	get the number of a tab page
 
-**tabpagewinnr()**	&rarr;	**Type**	&rArr;like winnr() for a specified tab page	
+**tabpagewinnr()**	&rarr;	**Type**	&rArr;	like winnr() for a specified tab page
 
-**bufwinid()**	&rarr;	**Type**	&rArr;get the window ID of a specific buffer	
+**bufwinid()**	&rarr;	**Type**	&rArr;	get the window ID of a specific buffer
 
-**bufwinnr()**	&rarr;	**Type**	&rArr;get the window number of a specific buffer	
+**bufwinnr()**	&rarr;	**Type**	&rArr;	get the window number of a specific buffer
 
-**winbufnr()**	&rarr;	**Type**	&rArr;get the buffer number of a specific window	
+**winbufnr()**	&rarr;	**Type**	&rArr;	get the buffer number of a specific window
 
-**getbufline()**	&rarr;	**Type**	&rArr;get a list of lines from the specified buffer	
+**getbufline()**	&rarr;	**Type**	&rArr;	get a list of lines from the specified buffer
 
 
 #### 4.2.3 Windows
 
-**win_findbuf()**	&rarr;	**Type**	&rArr;find windows containing a buffer	
+**win_findbuf()**	&rarr;	**Type**	&rArr;	find windows containing a buffer
 
-**winnr()**	&rarr;	**Type**	&rArr;get the window number for the current window	
+**winnr()**	&rarr;	**Type**	&rArr;	get the window number for the current window
 
-**win_getid()**	&rarr;	**Type**	&rArr;get window ID of a window	
+**win_getid()**	&rarr;	**Type**	&rArr;	get window ID of a window
 
-**win_gotoid()**	&rarr;	**Type**	&rArr;go to window with ID	
+**win_gotoid()**	&rarr;	**Type**	&rArr;	go to window with ID
 
-**win_id2tabwin()**	&rarr;	**Type**	&rArr;get tab and window nr from window ID	
+**win_id2tabwin()**	&rarr;	**Type**	&rArr;	get tab and window nr from window ID
 
-**win_id2win()**	&rarr;	**Type**	&rArr;get window nr from window ID	
+**win_id2win()**	&rarr;	**Type**	&rArr;	get window nr from window ID
 
-**getbufinfo()**	&rarr;	**Type**	&rArr;get a list with buffer information	
+**getbufinfo()**	&rarr;	**Type**	&rArr;	get a list with buffer information
 
-**gettabinfo()**	&rarr;	**Type**	&rArr;get a list with tab page information	
+**gettabinfo()**	&rarr;	**Type**	&rArr;	get a list with tab page information
 
-**getwininfo()**	&rarr;	**Type**	&rArr;get a list with window information	
+**getwininfo()**	&rarr;	**Type**	&rArr;	get a list with window information
 
-**winheight()**	&rarr;	**Type**	&rArr;get height of a specific window	
+**winheight()**	&rarr;	**Type**	&rArr;	get height of a specific window
 
-**winwidth()**	&rarr;	**Type**	&rArr;get width of a specific window	
+**winwidth()**	&rarr;	**Type**	&rArr;	get width of a specific window
 
-**winrestcmd()**	&rarr;	**Type**	&rArr;return command to restore window sizes	
+**winrestcmd()**	&rarr;	**Type**	&rArr;	return command to restore window sizes
 
-**winsaveview()**	&rarr;	**Type**	&rArr;get view of current window	
+**winsaveview()**	&rarr;	**Type**	&rArr;	get view of current window
 
-**winrestview()**	&rarr;	**Type**	&rArr;restore saved view of current window	
+**winrestview()**	&rarr;	**Type**	&rArr;	restore saved view of current window
 
 
 ### 4.3 Current Buffer
 
-**getline()**	&rarr;	**Type**	&rArr;get a line or list of lines from the buffer	
+**getline()**	&rarr;	**Type**	&rArr;	get a line or list of lines from the buffer
 
-**setline()**	&rarr;	**Type**	&rArr;replace a line in the buffer	
+**setline()**	&rarr;	**Type**	&rArr;	replace a line in the buffer
 
-**append()**	&rarr;	**Type**	&rArr;append line or list of lines in the buffer	
+**append()**	&rarr;	**Type**	&rArr;	append line or list of lines in the buffer
 
-**indent()**	&rarr;	**Type**	&rArr;indent of a specific line	
+**indent()**	&rarr;	**Type**	&rArr;	indent of a specific line
 
-**cindent()**	&rarr;	**Type**	&rArr;indent according to C indenting	
+**cindent()**	&rarr;	**Type**	&rArr;	indent according to C indenting
 
-**lispindent()**	&rarr;	**Type**	&rArr;indent according to Lisp indenting	
+**lispindent()**	&rarr;	**Type**	&rArr;	indent according to Lisp indenting
 
-**nextnonblank()**	&rarr;	**Type**	&rArr;find next non-blank line	
+**nextnonblank()**	&rarr;	**Type**	&rArr;	find next non-blank line
 
-**prevnonblank()**	&rarr;	**Type**	&rArr;find previous non-blank line	
+**prevnonblank()**	&rarr;	**Type**	&rArr;	find previous non-blank line
 
-**search()**	&rarr;	**Type**	&rArr;find a match for a pattern	
+**search()**	&rarr;	**Type**	&rArr;	find a match for a pattern
 
-**searchpos()**	&rarr;	**Type**	&rArr;find a match for a pattern	
+**searchpos()**	&rarr;	**Type**	&rArr;	find a match for a pattern
 
-**searchpair()**	&rarr;	**Type**	&rArr;find the other end of a start/skip/end	
+**searchpair()**	&rarr;	**Type**	&rArr;	find the other end of a start/skip/end
 
-**searchpairpos()**	&rarr;	**Type**	&rArr;find the other end of a start/skip/end	
+**searchpairpos()**	&rarr;	**Type**	&rArr;	find the other end of a start/skip/end
 
-**searchdecl()**	&rarr;	**Type**	&rArr;search for the declaration of a name	
+**searchdecl()**	&rarr;	**Type**	&rArr;	search for the declaration of a name
 
-**getcharsearch()**	&rarr;	**Type**	&rArr;return character search information	
+**getcharsearch()**	&rarr;	**Type**	&rArr;	return character search information
 
-**setcharsearch()**	&rarr;	**Type**	&rArr;set character search information	
+**setcharsearch()**	&rarr;	**Type**	&rArr;	set character search information
 
 
 **indent({lnum})** &rarr; **Int** &rArr; 指定行的C语言规则缩进
@@ -650,162 +678,98 @@ let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 
 ### 4.4 Cursor and Mark
 
-**col()**	&rarr;	**Type**	&rArr;column number of the cursor or a mark	
+**col()**	&rarr;	**Type**	&rArr;	column number of the cursor or a mark
 
-**virtcol()**	&rarr;	**Type**	&rArr;screen column of the cursor or a mark	
+**virtcol()**	&rarr;	**Type**	&rArr;	screen column of the cursor or a mark
 
-**line()**	&rarr;	**Type**	&rArr;line number of the cursor or mark	
+**line()**	&rarr;	**Type**	&rArr;	line number of the cursor or mark
 
-**wincol()**	&rarr;	**Type**	&rArr;window column number of the cursor	
+**wincol()**	&rarr;	**Type**	&rArr;	window column number of the cursor
 
-**winline()**	&rarr;	**Type**	&rArr;window line number of the cursor	
+**winline()**	&rarr;	**Type**	&rArr;	window line number of the cursor
 
-**cursor()**	&rarr;	**Type**	&rArr;position the cursor at a line/column	
+**cursor()**	&rarr;	**Type**	&rArr;	position the cursor at a line/column
 
-**screencol()**	&rarr;	**Type**	&rArr;get screen column of the cursor	
+**screencol()**	&rarr;	**Type**	&rArr;	get screen column of the cursor
 
-**screenrow()**	&rarr;	**Type**	&rArr;get screen row of the cursor	
+**screenrow()**	&rarr;	**Type**	&rArr;	get screen row of the cursor
 
-**getcurpos()**	&rarr;	**Type**	&rArr;get position of the cursor	
+**getcurpos()**	&rarr;	**Type**	&rArr;	get position of the cursor
 
-**getpos()**	&rarr;	**Type**	&rArr;get position of cursor, mark, etc.	
+**getpos()**	&rarr;	**Type**	&rArr;	get position of cursor, mark, etc.
 
-**setpos()**	&rarr;	**Type**	&rArr;set position of cursor, mark, etc.	
+**setpos()**	&rarr;	**Type**	&rArr;	set position of cursor, mark, etc.
 
-**byte2line()**	&rarr;	**Type**	&rArr;get line number at a specific byte count	
+**byte2line()**	&rarr;	**Type**	&rArr;	get line number at a specific byte count
 
-**line2byte()**	&rarr;	**Type**	&rArr;byte count at a specific line	
+**line2byte()**	&rarr;	**Type**	&rArr;	byte count at a specific line
 
-**diff_filler()**	&rarr;	**Type**	&rArr;get the number of filler lines above a line	
+**diff_filler()**	&rarr;	**Type**	&rArr;	get the number of filler lines above a line
 
-**screenattr()**	&rarr;	**Type**	&rArr;get attribute at a screen line/row	
+**screenattr()**	&rarr;	**Type**	&rArr;	get attribute at a screen line/row
 
-**screenchar()**	&rarr;	**Type**	&rArr;get character code at a screen line/row	
+**screenchar()**	&rarr;	**Type**	&rArr;	get character code at a screen line/row
 
 
 ### 4.5 System
 
-**glob()**	&rarr;	**Type**	&rArr;expand wildcards	
+**glob()**	&rarr;	**Type**	&rArr;	expand wildcards
 
-**globpath()**	&rarr;	**Type**	&rArr;expand wildcards in a number of directories	
+**globpath()**	&rarr;	**Type**	&rArr;	expand wildcards in a number of directories
 
-**glob2regpat()**	&rarr;	**Type**	&rArr;convert a glob pattern into a search pattern	
+**glob2regpat()**	&rarr;	**Type**	&rArr;	convert a glob pattern into a search pattern
 
-**findfile()**	&rarr;	**Type**	&rArr;find a file in a list of directories	
+**findfile()**	&rarr;	**Type**	&rArr;	find a file in a list of directories
 
-**finddir()**	&rarr;	**Type**	&rArr;find a directory in a list of directories	
+**finddir()**	&rarr;	**Type**	&rArr;	find a directory in a list of directories
 
-**resolve()**	&rarr;	**Type**	&rArr;find out where a shortcut points to	
+**resolve()**	&rarr;	**Type**	&rArr;	find out where a shortcut points to
 
-**fnamemodify()**	&rarr;	**Type**	&rArr;modify a file name	
+**fnamemodify()**	&rarr;	**Type**	&rArr;	modify a file name
 
-**pathshorten()**	&rarr;	**Type**	&rArr;shorten directory names in a path	
+**pathshorten()**	&rarr;	**Type**	&rArr;	shorten directory names in a path
 
-**simplify()**	&rarr;	**Type**	&rArr;simplify a path without changing its meaning	
+**simplify()**	&rarr;	**Type**	&rArr;	simplify a path without changing its meaning
 
-**executable()**	&rarr;	**Type**	&rArr;check if an executable program exists	
+**executable()**	&rarr;	**Type**	&rArr;	check if an executable program exists
 
-**exepath()**	&rarr;	**Type**	&rArr;full path of an executable program	
+**exepath()**	&rarr;	**Type**	&rArr;	full path of an executable program
 
-**filereadable()**	&rarr;	**Type**	&rArr;check if a file can be read	
+**filereadable()**	&rarr;	**Type**	&rArr;	check if a file can be read
 
-**filewritable()**	&rarr;	**Type**	&rArr;check if a file can be written to	
+**filewritable()**	&rarr;	**Type**	&rArr;	check if a file can be written to
 
-**getfperm()**	&rarr;	**Type**	&rArr;get the permissions of a file	
+**getfperm()**	&rarr;	**Type**	&rArr;	get the permissions of a file
 
-**setfperm()**	&rarr;	**Type**	&rArr;set the permissions of a file	
+**setfperm()**	&rarr;	**Type**	&rArr;	set the permissions of a file
 
-**getftype()**	&rarr;	**Type**	&rArr;get the kind of a file	
+**getftype()**	&rarr;	**Type**	&rArr;	get the kind of a file
 
-**isdirectory()**	&rarr;	**Type**	&rArr;check if a directory exists	
+**isdirectory()**	&rarr;	**Type**	&rArr;	check if a directory exists
 
-**getfsize()**	&rarr;	**Type**	&rArr;get the size of a file	
+**getfsize()**	&rarr;	**Type**	&rArr;	get the size of a file
 
-**getcwd()**	&rarr;	**Type**	&rArr;get the current working directory	
+**getcwd()**	&rarr;	**Type**	&rArr;	get the current working directory
 
-**haslocaldir()**	&rarr;	**Type**	&rArr;check if current window used |:lcd|	
+**haslocaldir()**	&rarr;	**Type**	&rArr;	check if current window used |:lcd|
 
-**tempname()**	&rarr;	**Type**	&rArr;get the name of a temporary file	
+**tempname()**	&rarr;	**Type**	&rArr;	get the name of a temporary file
 
-**mkdir()**	&rarr;	**Type**	&rArr;create a new directory	
+**mkdir()**	&rarr;	**Type**	&rArr;	create a new directory
 
-**delete()**	&rarr;	**Type**	&rArr;delete a file	
+**delete()**	&rarr;	**Type**	&rArr;	delete a file
 
-**rename()**	&rarr;	**Type**	&rArr;rename a file	
+**rename()**	&rarr;	**Type**	&rArr;	rename a file
 
-**system()**	&rarr;	**Type**	&rArr;get the result of a shell command as a string	
+**system()**	&rarr;	**Type**	&rArr;	get the result of a shell command as a string
 
-**systemlist()**	&rarr;	**Type**	&rArr;get the result of a shell command as a list	
-
-**hostname()**	&rarr;	**Type**	&rArr;name of the system	
-
-**readfile()**	&rarr;	**Type**	&rArr;read a file into a List of lines	
-
-**writefile()**	&rarr;	**Type**	&rArr;write a List of lines into a file	
-
-
-### 4.6 语法和高亮
-
-**clearmatches()**	&rarr;	**Type**	&rArr;clear all matches defined by |matchadd()| and	
-
-            the |:match| commands
-**getmatches()**	&rarr;	**Type**	&rArr;get all matches defined by |matchadd()| and	
-
-            the |:match| commands
-**hlexists()**	&rarr;	**Type**	&rArr;check if a highlight group exists	
-
-**hlID()**	&rarr;	**Type**	&rArr;get ID of a highlight group	
-
-**synID()**	&rarr;	**Type**	&rArr;get syntax ID at a specific position	
-
-**synIDattr()**	&rarr;	**Type**	&rArr;get a specific attribute of a syntax ID	
-
-**synIDtrans()**	&rarr;	**Type**	&rArr;get translated syntax ID	
-
-**synstack()**	&rarr;	**Type**	&rArr;get list of syntax IDs at a specific position	
-
-**synconcealed()**	&rarr;	**Type**	&rArr;get info about concealing	
-
-**diff_hlID()**	&rarr;	**Type**	&rArr;get highlight ID for diff mode at a position	
-
-**matchadd()**	&rarr;	**Type**	&rArr;define a pattern to highlight (a "match")	
-
-**matchaddpos()**	&rarr;	**Type**	&rArr;define a list of positions to highlight	
-
-**matcharg()**	&rarr;	**Type**	&rArr;get info about |:match| arguments	
-
-**matchdelete()**	&rarr;	**Type**	&rArr;delete a match defined by |matchadd()| or a |:match| command
-
-**setmatches()**	&rarr;	**Type**	&rArr;restore a list of matches saved by getmatches()
-
-### 4.3 功能型函数
-
-**getreg([{regName}[, 1[, list]]])** 获取寄存器内容
-
-+ `1`选项指定则
-
-**setreg([{regName}[, value[, <mode>]]])** 用于设置寄存器内容
-
-**empty({expr})** &rarr; `List, Dict, Num(0)`
-
-**type({expr})** &rarr; **Int** &rArr; 用于获取变量的类型
-
-|类型|Value|内建变量|
-|----|:---:|--------|
-|Number |0|v:t_number|
-|String |1|v:t_string|
-|Funcref|2|v:t_func|
-|List   |3|v:t_list|
-|Dictionary|4|v:t_dict|
-|Float|5|v:t_float|
-|Boolean|6|v:bool|
-|None|7|v:t_none|
-|Job|8|v:t_job|
-|Channel|9|v:t_channel|
-
-### 4.4 管理函数
+**systemlist()**	&rarr;	**Type**	&rArr;	get the result of a shell command as a list
 
 **hostname()** &rArr; **String** 返回当前计算机名
+
+**readfile()**	&rarr;	**Type**	&rArr;	read a file into a List of lines
+
+**writefile()**	&rarr;	**Type**	&rArr;	write a List of lines into a file
 
 **libcall({libname}, {functionName}, {argumetns})**返回`functionName`返回的
 
@@ -814,39 +778,67 @@ let dict2 = {'len':function('s:mylen'), 'name':'my name'}
 
 **libcallnr({libName}, {functionName}, {argumetns})**和`libcall()`类似
 
-### 4.5 其他
+### 4.6 语法和高亮
 
-#### 4.5.1 时间
+**clearmatches()**	&rarr;	**Type**	&rArr;	clear all matches defined by |matchadd()| and the |:match| commands
 
-**getftime()**	&rarr;	**Type**	&rArr;get last modification time of a file	
+**getmatches()**	&rarr;	**Type**	&rArr;	get all matches defined by |matchadd()| and the |:match| commands
 
-**localtime()**	&rarr;	**Type**	&rArr;get current time in seconds	
+**hlexists()**	&rarr;	**Type**	&rArr;	check if a highlight group exists
 
-**strftime()**	&rarr;	**Type**	&rArr;convert time to a string	
+**hlID()**	&rarr;	**Type**	&rArr;	get ID of a highlight group
 
-**reltime()**	&rarr;	**Type**	&rArr;get the current or elapsed time accurately	
+**synID()**	&rarr;	**Type**	&rArr;	get syntax ID at a specific position
 
-**reltimestr()**	&rarr;	**Type**	&rArr;convert reltime() result to a string	
+**synIDattr()**	&rarr;	**Type**	&rArr;	get a specific attribute of a syntax ID
 
-**reltimefloat()**	&rarr;	**Type**	&rArr;convert reltime() result to a Float	
+**synIDtrans()**	&rarr;	**Type**	&rArr;	get translated syntax ID
 
-#### 4.5.2 CMDLINE
+**synstack()**	&rarr;	**Type**	&rArr;	get list of syntax IDs at a specific position
 
-**getcmdline()**	&rarr;	**Type**	&rArr;get the current command line	
+**synconcealed()**	&rarr;	**Type**	&rArr;	get info about concealing
 
-**getcmdpos()**	&rarr;	**Type**	&rArr;get position of the cursor in the command line	
+**diff_hlID()**	&rarr;	**Type**	&rArr;	get highlight ID for diff mode at a position
 
-**setcmdpos()**	&rarr;	**Type**	&rArr;set position of the cursor in the command line	
+**matchadd()**	&rarr;	**Type**	&rArr;	define a pattern to highlight (a "match")
 
-**getcmdtype()**	&rarr;	**Type**	&rArr;return the current command-line type	
+**matchaddpos()**	&rarr;	**Type**	&rArr;	define a list of positions to highlight
 
-**getcmdwintype()**	&rarr;	**Type**	&rArr;return the current command-line window type	
+**matcharg()**	&rarr;	**Type**	&rArr;	get info about |:match| arguments
 
-**getcompletion()**	&rarr;	**Type**	&rArr;list of command-line completion matches	
+**matchdelete()**	&rarr;	**Type**	&rArr;delete a match defined by |matchadd()| or a |:match| command
 
-**deepcopy({expr}[, noref])** &aArr; 复制变量
+**setmatches()**	&rarr;	**Type**	&rArr;restore a list of matches saved by getmatches()
 
-**trunc({Num-float})** &rarr; **Int** &rArr; 取不大于`{Num-float}`的整数
+### 4.7 其他
+
+#### 4.7.1 时间
+
+**getftime()**	&rarr;	**Type**	&rArr;get last modification time of a file
+
+**localtime()**	&rarr;	**Type**	&rArr;get current time in seconds
+
+**strftime()**	&rarr;	**Type**	&rArr;	convert time to a string
+
+**reltime()**	&rarr;	**Type**	&rArr;	get the current or elapsed time accurately
+
+**reltimestr()**	&rarr;	**Type**	&rArr;	convert reltime() result to a string
+
+**reltimefloat()**	&rarr;	**Type**	&rArr;	convert reltime() result to a Float
+
+#### 4.7.2 CMDLINE
+
+**getcmdline()**	&rarr;	**Type**	&rArr;	get the current command line
+
+**getcmdpos()**	&rarr;	**Type**	&rArr;	get position of the cursor in the command line
+
+**setcmdpos()**	&rarr;	**Type**	&rArr;	set position of the cursor in the command line
+
+**getcmdtype()**	&rarr;	**Type**	&rArr;	return the current command-line type
+
+**getcmdwintype()**	&rarr;	**Type**	&rArr;	return the current command-line window type
+
+**getcompletion()**	&rarr;	**Type**	&rArr;	list of command-line completion matches
 
 ## 5. 异常处理
 
